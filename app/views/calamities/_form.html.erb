@@ -1,0 +1,17 @@
+<%= form_with(model: calamity) do |form| %>
+  <% if calamity.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(calamity.errors.count, "error") %> prohibited this calamity from being saved:</h2>
+
+      <ul>
+        <% calamity.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

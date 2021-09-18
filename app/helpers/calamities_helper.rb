@@ -1,0 +1,2 @@
+module CalamitiesHelper
+end
