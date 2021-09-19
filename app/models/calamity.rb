@@ -5,12 +5,22 @@ class Calamity
 
   def self.all
     Event.all.select do |event|
-      event.name == 'CreateCalamity'
+      event.name == 'CalamityCreate'
     end.collect do |event|
-      Calamity.new(id: event.data['calamity_id'],
-                   name: event.data['calamity_name'],
-                   scheduled_at: event.data['scheduled_at'])
+      Calamity.new(id: event.data[:calamity_id],
+                   name: event.data[:name],
+                   scheduled_at: event.data[:scheduled_at])
     end
+  end
+
+  def self.find(id)
+    event = Event.all.find do |event|
+      event.name == 'CalamityCreate' && event.data[:calamity_id] == id
+    end
+
+    @calamity = Calamity.new(id: event.data[:calamity_id],
+                             name: event.data[:name],
+                             scheduled_at: event.data[:scheduled_at])
   end
 
   def initialize(attributes = {})

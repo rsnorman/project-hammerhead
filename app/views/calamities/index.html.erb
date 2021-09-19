@@ -16,9 +16,9 @@
       <tr>
         <td><%= calamity.name %></td>
         <td><%= calamity.scheduled_at %></td>
-        <td><%= link_to 'Show', calamity %></td>
+        <td><%= link_to 'Show', calamity_path(calamity) %></td>
         <td><%= link_to 'Edit', edit_calamity_path(calamity) %></td>
-        <td><%= link_to 'Destroy', calamity, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Destroy', calamity_path(calamity), method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>

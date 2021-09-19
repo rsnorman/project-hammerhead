@@ -18,7 +18,7 @@
 
   <div class="field">
     <%= form.label :data %>
-    <%= form.text_area :data, value: event.raw_data %>
+    <%= form.text_area :data, value: event.data.to_json %>
   </div>
 
   <div class="actions">

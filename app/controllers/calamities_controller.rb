@@ -21,15 +21,16 @@ class CalamitiesController < ApplicationController
 
   # POST /calamities or /calamities.json
   def create
-    @calamity = Calamity.new(calamity_params)
+    @create_calamity_command = Commands::CreateCalamity.new(calamity_params)
+    @calamity_create_event = @create_calamity_command.execute
 
     respond_to do |format|
-      if @calamity.save
-        format.html { redirect_to @calamity, notice: "Calamity was successfully created." }
-        format.json { render :show, status: :created, location: @calamity }
+      if @calamity_create_event.valid?
+        format.html { redirect_to "/calamities/#{@calamity_create_event.data[:calamity_id]}", notice: "Calamity was successfully created." }
+        format.json { render :show, status: :created, location: @calamity_create_event.data[:calamity_id] }
       else
         format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @calamity.errors, status: :unprocessable_entity }
+        format.json { render json: @create_calamity_command.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -64,6 +65,6 @@ class CalamitiesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def calamity_params
-      params.fetch(:calamity, {})
+      params.require(:calamity).permit(:name, :scheduled_at)
     end
 end
