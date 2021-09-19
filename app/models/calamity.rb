@@ -1,7 +1,7 @@
 class Calamity
   include ActiveModel::Model
 
-  attr_reader :id, :name, :scheduled_at
+  attr_reader :id, :name, :scheduled_at, :deleted_at
 
   def self.all
     Event.all.select do |event|
@@ -29,7 +29,7 @@ class Calamity
 
   def self.apply_event_changes!(calamity)
     Event.all.select do |event|
-      event.data[:calamity_id] == calamity.id && event.name == 'CalamityUpdate'
+      event.data[:calamity_id] == calamity.id && (event.name == 'CalamityUpdate' || event.name == 'CalamityDestroy')
     end.each do |event|
       calamity.apply_event_change!(event)
     end
@@ -38,11 +38,7 @@ class Calamity
   end
 
   def self.remove_deleted!(calamity)
-    destroy_event = Event.all.find do |event|
-      event.data[:calamity_id] == calamity.id && event.name == 'CalamityDestroy'
-    end
-
-    if destroy_event
+    if calamity.deleted_at.present?
       nil
     else
       calamity
@@ -53,11 +49,13 @@ class Calamity
     @id = attributes[:id]
     @name = attributes[:name]
     @scheduled_at = DateTime.parse(attributes[:scheduled_at]) if attributes[:scheduled_at]
+    @deleted_at = DateTime.parse(attributes[:deleted_at]) if attributes[:deleted_at]
   end
 
   def apply_event_change!(event)
     @name = event.data[:name] if event.data[:name]
     @scheduled_at = event.data[:scheduled_at] if event.data[:scheduled_at]
+    @deleted_at = event.data[:deleted_at] if event.data[:deleted_at]
   end
 
   def to_param

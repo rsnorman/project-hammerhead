@@ -53,7 +53,9 @@ class CalamitiesController < ApplicationController
 
   # DELETE /calamities/1 or /calamities/1.json
   def destroy
-    @calamity.destroy
+    @destroy_calamity_command = Commands::DestroyCalamity.new(calamity: @calamity)
+    @calamity_destroy_event = @destroy_calamity_command.execute
+
     respond_to do |format|
       format.html { redirect_to calamities_url, notice: "Calamity was successfully destroyed." }
       format.json { head :no_content }
