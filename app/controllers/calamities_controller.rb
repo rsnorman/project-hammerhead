@@ -70,6 +70,6 @@ class CalamitiesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def calamity_params
-      params.require(:calamity).permit(:name, :scheduled_at)
+      params.require(:calamity).permit(:name, :location, :scheduled_at)
     end
 end

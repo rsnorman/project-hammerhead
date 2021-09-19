@@ -1,7 +1,7 @@
 class Calamity
   include ActiveModel::Model
 
-  attr_reader :id, :name, :scheduled_at, :deleted_at
+  attr_reader :id, :name, :location, :scheduled_at, :deleted_at
 
   def self.all
     Event.all.select do |event|
@@ -9,6 +9,7 @@ class Calamity
     end.collect do |event|
       calamity = Calamity.new(id: event.data[:calamity_id],
                    name: event.data[:name],
+                   location: event.data[:location],
                    scheduled_at: event.data[:scheduled_at])
       apply_event_changes!(calamity)
       remove_deleted!(calamity)
@@ -22,6 +23,7 @@ class Calamity
 
     @calamity = Calamity.new(id: event.data[:calamity_id],
                              name: event.data[:name],
+                             location: event.data[:location],
                              scheduled_at: event.data[:scheduled_at])
     apply_event_changes!(@calamity)
     remove_deleted!(@calamity)
@@ -48,12 +50,14 @@ class Calamity
   def initialize(attributes = {})
     @id = attributes[:id]
     @name = attributes[:name]
+    @location = attributes[:location]
     @scheduled_at = DateTime.parse(attributes[:scheduled_at]) if attributes[:scheduled_at]
     @deleted_at = DateTime.parse(attributes[:deleted_at]) if attributes[:deleted_at]
   end
 
   def apply_event_change!(event)
     @name = event.data[:name] if event.data[:name]
+    @location = event.data[:location] if event.data[:location]
     @scheduled_at = event.data[:scheduled_at] if event.data[:scheduled_at]
     @deleted_at = event.data[:deleted_at] if event.data[:deleted_at]
   end

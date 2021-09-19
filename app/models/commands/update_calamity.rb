@@ -7,6 +7,7 @@ module Commands
     def initialize(attributes = {})
       @calamity = attributes[:calamity]
       @name = attributes[:name]
+      @location = attributes[:location]
       @scheduled_at = attributes[:scheduled_at]
     end
 
@@ -17,6 +18,7 @@ module Commands
     def updated_attributes
       attrs = { calamity_id: @calamity.id }
       attrs.merge!(name: @name) unless @calamity.name == @name
+      attrs.merge!(location: @location) unless @calamity.location == @location
       attrs.merge!(scheduled_at: @scheduled_at) unless @calamity.scheduled_at == @scheduled_at
       attrs
     end

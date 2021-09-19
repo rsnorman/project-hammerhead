@@ -6,11 +6,12 @@ module Commands
 
     def initialize(attributes = {})
       @name = attributes[:name]
+      @location = attributes[:location]
       @scheduled_at = attributes[:scheduled_at]
     end
 
     def execute
-      Event.create!(name: 'CalamityCreate', data: { name: @name, scheduled_at: @scheduled_at, calamity_id: SecureRandom.uuid })
+      Event.create!(name: 'CalamityCreate', data: { name: @name, location: @location, scheduled_at: @scheduled_at, calamity_id: SecureRandom.uuid })
     end
   end
 end
