@@ -1,15 +1,16 @@
 class Calamity
   include ActiveModel::Model
 
-  attr_reader :id, :name, :scheduled_at
+  attr_reader :id, :name
 
   def self.all
     Event.all.select do |event|
       event.name == 'CalamityCreate'
     end.collect do |event|
-      Calamity.new(id: event.data[:calamity_id],
+      calamity = Calamity.new(id: event.data[:calamity_id],
                    name: event.data[:name],
                    scheduled_at: event.data[:scheduled_at])
+      apply_event_changes!(calamity)
     end
   end
 
@@ -21,6 +22,17 @@ class Calamity
     @calamity = Calamity.new(id: event.data[:calamity_id],
                              name: event.data[:name],
                              scheduled_at: event.data[:scheduled_at])
+    apply_event_changes!(@calamity)
+  end
+
+  def self.apply_event_changes!(calamity)
+    Event.all.select do |event|
+      event.data[:calamity_id] == calamity.id && event.name == 'CalamityUpdate'
+    end.each do |event|
+      calamity.apply_event_change!(event)
+    end
+
+    calamity
   end
 
   def initialize(attributes = {})
@@ -29,7 +41,20 @@ class Calamity
     @scheduled_at = attributes[:scheduled_at]
   end
 
+  def apply_event_change!(event)
+    @name = event.data[:name] if event.data[:name]
+    @scheduled_at = event.data[:scheduled_at] if event.data[:scheduled_at]
+  end
+
+  def scheduled_at
+    DateTime.parse(@scheduled_at)
+  end
+
   def to_param
     @id.to_s
+  end
+
+  def persisted?
+    @id.present?
   end
 end

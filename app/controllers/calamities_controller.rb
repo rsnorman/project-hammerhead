@@ -37,13 +37,16 @@ class CalamitiesController < ApplicationController
 
   # PATCH/PUT /calamities/1 or /calamities/1.json
   def update
+    @update_calamity_command = Commands::UpdateCalamity.new(calamity_params.merge(calamity: @calamity))
+    @calamity_update_event = @update_calamity_command.execute
+
     respond_to do |format|
-      if @calamity.update(calamity_params)
-        format.html { redirect_to @calamity, notice: "Calamity was successfully updated." }
-        format.json { render :show, status: :ok, location: @calamity }
+      if @calamity_update_event.valid?
+        format.html { redirect_to "/calamities/#{@calamity_update_event.data[:calamity_id]}", notice: "Calamity was successfully updated." }
+        format.json { render :show, status: :ok, location: @calamity_update_event.data[:calamity_id] }
       else
         format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @calamity.errors, status: :unprocessable_entity }
+        format.json { render json: @update_calamity_command.errors, status: :unprocessable_entity }
       end
     end
   end
