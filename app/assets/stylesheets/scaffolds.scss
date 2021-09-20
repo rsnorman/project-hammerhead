@@ -62,3 +62,7 @@ div.actions {
 
 label {
   display: block; }
+
+.group:focus .group-focus\:flex {
+    display: flex;
+}
