@@ -1,19 +1,29 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @calamity.name %>
-</p>
+<div class="flex flex-col flex-grow">
+  <div class="flex items-center flex-shrink-0 h-16 px-8 border-b border-gray-800">
+    <h1 class="text-lg font-medium">View Calamity</h1>
+  </div>
+  <div class="flex-grow p-6 overflow-auto bg-gray-800">
+    <div class="grid grid-cols-3 gap-6 mb-2">
+      <div class="p-4 col-span-1 bg-gray-700">
+        <div class="p-2">
+          <h2 class="text-lg font-medium"><%= @calamity.name %></h2>
+        </div>
 
-<p>
-  <strong>Location:</strong>
-  <%= @calamity.location %>
-</p>
+        <div class="p-2">
+          <strong>Location:</strong>
+          <%= @calamity.location %>
+        </div>
 
-<p>
-  <strong>Scheduled at:</strong>
-  <%= @calamity.scheduled_at %>
-</p>
+        <div class="p-2">
+          <strong>Scheduled at:</strong>
+          <%= @calamity.scheduled_at %>
+        </div>
+      </div>
+    </div>
 
-<%= link_to 'Edit', edit_calamity_path(@calamity) %> |
-<%= link_to 'Back', calamities_path %>
+    <%= link_to 'Edit', edit_calamity_path(@calamity), class: "items-center justify-center h-10 p-1 ml-auto text-sm font-medium rounded hover:bg-gray-600" %> |
+    <%= link_to 'Back', calamities_path, class: "items-center justify-center h-10 p-1 ml-auto text-sm font-medium rounded hover:bg-gray-600" %>
+  </div>
+</div>

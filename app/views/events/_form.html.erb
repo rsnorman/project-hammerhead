@@ -13,15 +13,15 @@
 
   <div class="field">
     <%= form.label :name %>
-    <%= form.text_field :name %>
+    <%= form.text_field :name, required: true, class: "block border border-grey-light w-full p-3 rounded mb-4" %>
   </div>
 
   <div class="field">
     <%= form.label :data %>
-    <%= form.text_area :data, value: event.data.to_json %>
+    <%= form.text_area :data, value: event.data.to_json, required: true, class: "block border border-grey-light w-full p-3 rounded mb-4" %>
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit class: "w-full text-center py-3 rounded bg-indigo-600 text-white hover:bg-green-dark focus:outline-none" %>
   </div>
 <% end %>
