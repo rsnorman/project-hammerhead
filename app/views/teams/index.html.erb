@@ -1,0 +1,45 @@
+<p id="notice"><%= notice %></p>
+
+<div class="flex flex-col flex-grow">
+  <div class="flex items-center flex-shrink-0 h-16 px-8 border-b border-gray-800">
+    <h1 class="text-lg font-medium">Teams</h1>
+    <button class="relative ml-auto text-sm focus:outline-none group">
+        <div class="flex items-center justify-between w-10 h-10 rounded hover:bg-gray-800">
+            <svg class="w-5 h-5 mx-auto" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
+            </svg>
+        </div>
+        <div class="absolute right-0 flex-col items-start hidden w-40 mt-1 pb-1 bg-gray-800 border border-gray-800 shadow-lg group-focus:flex">
+            <%= link_to 'Sign Out', destroy_user_session_path, method: :delete, data: { confirm: 'Are you sure?' }, class: "w-full px-4 py-2 text-left hover:bg-gray-900" %>
+        </div>
+    </button>
+  </div>
+
+  <div class="flex-grow p-6 overflow-auto bg-gray-800">
+    <table class="min-w-full table-auto">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th colspan="3"></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @teams.each do |team| %>
+          <tr class="bg-gray-700">
+            <td class="p-2"><%= team.name %></td>
+            <td class="p-2"><%= team.location %></td>
+            <td class="p-2"><%= team.scheduled_at %></td>
+            <td class="p-2"><%= link_to 'Show', team_path(team), class: "items-center justify-center h-10 p-1 ml-auto text-sm font-medium rounded hover:bg-gray-600" %></td>
+            <td class="p-2"><%= link_to 'Edit', edit_team_path(team), class: "items-center justify-center h-10 p-1 ml-auto text-sm font-medium rounded hover:bg-gray-600" %></td>
+            <td class="p-2"><%= link_to 'Destroy', team_path(team), method: :delete, data: { confirm: 'Are you sure?' }, class: "items-center justify-center h-10 p-1 ml-auto text-sm font-medium rounded hover:bg-gray-600" %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+    <br>
+
+    <%= link_to 'New Team', new_team_path, class: "text-center p-3 rounded bg-indigo-600 text-white hover:bg-indigo-900 focus:outline-none" %>
+  </div>
+</div>
