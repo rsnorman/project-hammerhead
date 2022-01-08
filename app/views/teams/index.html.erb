@@ -28,8 +28,6 @@
         <% @teams.each do |team| %>
           <tr class="bg-gray-700">
             <td class="p-2"><%= team.name %></td>
-            <td class="p-2"><%= team.location %></td>
-            <td class="p-2"><%= team.scheduled_at %></td>
             <td class="p-2"><%= link_to 'Show', team_path(team), class: "items-center justify-center h-10 p-1 ml-auto text-sm font-medium rounded hover:bg-gray-600" %></td>
             <td class="p-2"><%= link_to 'Edit', edit_team_path(team), class: "items-center justify-center h-10 p-1 ml-auto text-sm font-medium rounded hover:bg-gray-600" %></td>
             <td class="p-2"><%= link_to 'Destroy', team_path(team), method: :delete, data: { confirm: 'Are you sure?' }, class: "items-center justify-center h-10 p-1 ml-auto text-sm font-medium rounded hover:bg-gray-600" %></td>
