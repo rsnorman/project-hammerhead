@@ -43,7 +43,7 @@ class TeamMembersController < ApplicationController
 
     respond_to do |format|
       if @team_member_update_event.valid?
-        format.html { redirect_to "/team_members/#{@team_member_update_event.data[:team_member_id]}", notice: "Team Member was successfully updated." }
+        format.html { redirect_to "/teams/#{@team.id}/team_members/#{@team_member_update_event.data[:team_member_id]}", notice: "Team Member was successfully updated." }
         format.json { render :show, status: :ok, location: @team_member_update_event.data[:team_member_id] }
       else
         format.html { render :edit, status: :unprocessable_entity }
