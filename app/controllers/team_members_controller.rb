@@ -27,7 +27,7 @@ class TeamMembersController < ApplicationController
 
     respond_to do |format|
       if @team_member_create_event.valid?
-        format.html { redirect_to "/teams/#{@team.id}/team_members/#{@team_member_create_event.data[:team_member_id]}", notice: "Team Member was successfully created." }
+        format.html { redirect_to "/teams/#{@team.id}/team_members/new", notice: "Team Member was successfully created." }
         format.json { render :show, status: :created, location: @team_member_create_event.data[:team_member_id] }
       else
         format.html { render :new, status: :unprocessable_entity }
