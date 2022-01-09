@@ -58,7 +58,7 @@ class TeamMembersController < ApplicationController
     @team_member_destroy_event = @destroy_team_member_command.execute
 
     respond_to do |format|
-      format.html { redirect_to team_members_url, notice: "Team Member was successfully destroyed." }
+      format.html { redirect_to team_team_members_url(@team), notice: "Team Member was successfully destroyed." }
       format.json { head :no_content }
     end
   end
