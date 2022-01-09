@@ -23,10 +23,10 @@ class Team
       event.name == CREATE_EVENT_NAME && event.data[:team_id] == id
     end
 
-    @team = Team.new(id: event.data[:team_id],
-                             name: event.data[:name])
-    apply_event_changes!(@team)
-    remove_deleted!(@team)
+    team = Team.new(id: event.data[:team_id],
+                     name: event.data[:name])
+    apply_event_changes!(team)
+    remove_deleted!(team)
   end
 
   def self.apply_event_changes!(team)
@@ -50,15 +50,11 @@ class Team
   def initialize(attributes = {})
     @id = attributes[:id]
     @name = attributes[:name]
-    @location = attributes[:location]
-    @scheduled_at = DateTime.parse(attributes[:scheduled_at]) if attributes[:scheduled_at]
     @deleted_at = DateTime.parse(attributes[:deleted_at]) if attributes[:deleted_at]
   end
 
   def apply_event_change!(event)
     @name = event.data[:name] if event.data[:name]
-    @location = event.data[:location] if event.data[:location]
-    @scheduled_at = event.data[:scheduled_at] if event.data[:scheduled_at]
     @deleted_at = event.data[:deleted_at] if event.data[:deleted_at]
   end
 

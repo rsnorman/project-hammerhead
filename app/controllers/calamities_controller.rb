@@ -1,5 +1,6 @@
 class CalamitiesController < ApplicationController
   before_action :set_calamity, only: %i[ show edit update destroy ]
+  before_action :set_team, only: %[ new create ]
 
   # GET /calamities or /calamities.json
   def index
@@ -21,7 +22,7 @@ class CalamitiesController < ApplicationController
 
   # POST /calamities or /calamities.json
   def create
-    @create_calamity_command = Commands::CreateCalamity.new(calamity_params)
+    @create_calamity_command = Commands::CreateCalamity.new(calamity_params.merge(team_id: @team.id))
     @calamity_create_event = @create_calamity_command.execute
 
     respond_to do |format|
@@ -61,6 +62,10 @@ class CalamitiesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_calamity
       @calamity = Calamity.find(params[:id])
+    end
+
+    def set_team
+      @team = Team.all.find { |team| team.name == 'Chinatown' }
     end
 
     # Only allow a list of trusted parameters through.

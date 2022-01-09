@@ -18,6 +18,7 @@
       <thead>
         <tr>
           <th>Name</th>
+          <th>Team</th>
           <th>Location</th>
           <th>Scheduled At</th>
           <th colspan="3"></th>
@@ -28,6 +29,7 @@
         <% @calamities.each do |calamity| %>
           <tr class="bg-gray-700">
             <td class="p-2"><%= calamity.name %></td>
+            <td class="p-2"><%= calamity.team_name %></td>
             <td class="p-2"><%= calamity.location %></td>
             <td class="p-2"><%= calamity.scheduled_at %></td>
             <td class="p-2"><%= link_to 'Show', calamity_path(calamity), class: "items-center justify-center h-10 p-1 ml-auto text-sm font-medium rounded hover:bg-gray-600" %></td>
