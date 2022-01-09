@@ -9,6 +9,7 @@ class CalamitiesController < ApplicationController
 
   # GET /calamities/1 or /calamities/1.json
   def show
+    @attendees = Attendee.all(calamity_id: @calamity.id)
   end
 
   # GET /calamities/new
