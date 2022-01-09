@@ -1,0 +1,28 @@
+<%= form_with(model: team_member, url: [team, team_member]) do |form| %>
+  <% if team_member.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(team_member.errors.count, "error") %> prohibited this team_member member from being added:</h2>
+
+      <ul>
+        <% team_member.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name, required: true, class: "block border border-grey-light w-full p-3 rounded mb-4" %>
+  </div>
+
+  <div class="field">
+    <%= form.label :email %>
+    <%= form.text_field :email, required: true, type: :email, class: "block border border-grey-light w-full p-3 rounded mb-4" %>
+  </div>
+
+
+  <div class="actions">
+    <%= form.submit class: "w-full text-center py-3 rounded bg-indigo-600 text-white hover:bg-green-dark focus:outline-none" %>
+  </div>
+<% end %>
