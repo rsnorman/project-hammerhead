@@ -27,10 +27,8 @@ class CalamitiesController < ApplicationController
     respond_to do |format|
       if @calamity_create_event.valid?
         format.html { redirect_to "/calamities/#{@calamity_create_event.data[:calamity_id]}", notice: "Calamity was successfully created." }
-        format.json { render :show, status: :created, location: @calamity_create_event.data[:calamity_id] }
       else
         format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @create_calamity_command.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -43,10 +41,8 @@ class CalamitiesController < ApplicationController
     respond_to do |format|
       if @calamity_update_event.valid?
         format.html { redirect_to "/calamities/#{@calamity_update_event.data[:calamity_id]}", notice: "Calamity was successfully updated." }
-        format.json { render :show, status: :ok, location: @calamity_update_event.data[:calamity_id] }
       else
         format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @update_calamity_command.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -58,7 +54,6 @@ class CalamitiesController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to calamities_url, notice: "Calamity was successfully destroyed." }
-      format.json { head :no_content }
     end
   end
 
