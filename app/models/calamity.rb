@@ -1,7 +1,7 @@
 class Calamity
   include ActiveModel::Model
 
-  attr_reader :id, :name, :location, :scheduled_at, :deleted_at
+  attr_reader :id, :name, :team_id, :location, :scheduled_at, :deleted_at
 
   def self.all
     Event.all.select do |event|
@@ -9,6 +9,7 @@ class Calamity
     end.collect do |event|
       calamity = Calamity.new(id: event.data[:calamity_id],
                    name: event.data[:name],
+                   team_id: event.data[:team_id],
                    location: event.data[:location],
                    scheduled_at: event.data[:scheduled_at])
       apply_event_changes!(calamity)
@@ -22,6 +23,7 @@ class Calamity
     end
 
     @calamity = Calamity.new(id: event.data[:calamity_id],
+                             team_id: event.data[:team_id],
                              name: event.data[:name],
                              location: event.data[:location],
                              scheduled_at: event.data[:scheduled_at])
@@ -50,6 +52,7 @@ class Calamity
   def initialize(attributes = {})
     @id = attributes[:id]
     @name = attributes[:name]
+    @team_id = attributes[:team_id]
     @location = attributes[:location]
     @scheduled_at = DateTime.parse(attributes[:scheduled_at]) if attributes[:scheduled_at]
     @deleted_at = DateTime.parse(attributes[:deleted_at]) if attributes[:deleted_at]
@@ -68,5 +71,13 @@ class Calamity
 
   def persisted?
     @id.present?
+  end
+
+  def team_name
+    team.name
+  end
+
+  def team
+    @team ||= Team.find(@team_id)
   end
 end

@@ -28,10 +28,8 @@ class TeamMembersController < ApplicationController
     respond_to do |format|
       if @team_member_create_event.valid?
         format.html { redirect_to "/teams/#{@team.id}/team_members/new", notice: "Team Member was successfully created." }
-        format.json { render :show, status: :created, location: @team_member_create_event.data[:team_member_id] }
       else
         format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @create_team_member_command.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -44,10 +42,8 @@ class TeamMembersController < ApplicationController
     respond_to do |format|
       if @team_member_update_event.valid?
         format.html { redirect_to "/teams/#{@team.id}/team_members/#{@team_member_update_event.data[:team_member_id]}", notice: "Team Member was successfully updated." }
-        format.json { render :show, status: :ok, location: @team_member_update_event.data[:team_member_id] }
       else
         format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @update_team_member_command.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -59,7 +55,6 @@ class TeamMembersController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to team_team_members_url(@team), notice: "Team Member was successfully destroyed." }
-      format.json { head :no_content }
     end
   end
 

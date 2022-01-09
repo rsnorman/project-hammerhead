@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  resources :calamities
+  resources :calamities do
+    resources :attendees
+  end
   resources :teams do
     resources :team_members
   end

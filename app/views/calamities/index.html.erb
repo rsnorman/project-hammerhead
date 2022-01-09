@@ -1,5 +1,3 @@
-<p id="notice"><%= notice %></p>
-
 <div class="flex flex-col flex-grow">
   <div class="flex items-center flex-shrink-0 h-16 px-8 border-b border-gray-800">
     <h1 class="text-lg font-medium">Calamities</h1>
@@ -20,6 +18,7 @@
       <thead>
         <tr>
           <th>Name</th>
+          <th>Team</th>
           <th>Location</th>
           <th>Scheduled At</th>
           <th colspan="3"></th>
@@ -30,6 +29,7 @@
         <% @calamities.each do |calamity| %>
           <tr class="bg-gray-700">
             <td class="p-2"><%= calamity.name %></td>
+            <td class="p-2"><%= calamity.team_name %></td>
             <td class="p-2"><%= calamity.location %></td>
             <td class="p-2"><%= calamity.scheduled_at %></td>
             <td class="p-2"><%= link_to 'Show', calamity_path(calamity), class: "items-center justify-center h-10 p-1 ml-auto text-sm font-medium rounded hover:bg-gray-600" %></td>
