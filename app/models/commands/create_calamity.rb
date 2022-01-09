@@ -9,6 +9,7 @@ module Commands
       @location = attributes[:location]
       @scheduled_at = attributes[:scheduled_at]
       @team_id = attributes[:team_id]
+      @calamity_id = SecureRandom.uuid
     end
 
     def execute
@@ -17,8 +18,10 @@ module Commands
         location: @location,
         scheduled_at: @scheduled_at,
         team_id: @team_id,
-        calamity_id: SecureRandom.uuid
+        calamity_id: @calamity_id
       })
+
+      Commands::CreateAttendeeList.execute(calamity_id: @calamity_id, team_id: @team_id)
     end
   end
 end

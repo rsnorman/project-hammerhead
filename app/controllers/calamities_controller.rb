@@ -1,6 +1,6 @@
 class CalamitiesController < ApplicationController
+  before_action :set_team, only: %i[ new create ]
   before_action :set_calamity, only: %i[ show edit update destroy ]
-  before_action :set_team, only: %[ new create ]
 
   # GET /calamities or /calamities.json
   def index
