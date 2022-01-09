@@ -5,6 +5,8 @@ class Attendee
   UPDATE_EVENT_NAME = 'AttendeeUpdate'
   DESTROY_EVENT_NAME = 'AttendeeDestroy'
 
+  ATTENDENCE_STATUSES = %i[ pending accepted declined unsure ]
+
   attr_reader :id, :calamity_id, :team_id, :status, :deleted_at
 
   def self.all(calamity_id:)
@@ -60,7 +62,7 @@ class Attendee
   end
 
   def apply_event_change!(event)
-    @name = event.data[:status] if event.data[:status]
+    @status = event.data[:status] if event.data[:status]
     @deleted_at = event.data[:deleted_at] if event.data[:deleted_at]
   end
 
