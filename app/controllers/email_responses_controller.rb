@@ -14,6 +14,7 @@ class EmailResponsesController < ApplicationController
 
   # POST /email_responses or /email_responses.json
   def create
+    raise email_response_params.inspect
     @create_email_response_command = Commands::CreateEmailResponse.new(email_response_params)
     @email_response_create_event = @create_email_response_command.execute
 
