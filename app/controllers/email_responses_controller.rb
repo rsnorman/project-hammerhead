@@ -1,6 +1,7 @@
 class EmailResponsesController < ApplicationController
-  before_action :set_team
+  before_action :set_calamity
   before_action :set_email_response, only: %i[ show destroy ]
+  protect_from_forgery with: :null_session
 
   # GET /email_responses or /email_responses.json
   def index
@@ -18,7 +19,9 @@ class EmailResponsesController < ApplicationController
 
     respond_to do |format|
       if @email_response_create_event.valid?
-        format.html { redirect_to "/email_responses/#{@email_response_create_event.data[:email_response_id]}", notice: "Email Response was successfully created." }
+        @email_response = EmailResponse.find(@email_response_create_event.data[:email_response_id])
+
+        format.html { render :show, status: :created }
       else
         format.html { render :new, status: :unprocessable_entity }
       end
@@ -37,8 +40,8 @@ class EmailResponsesController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_team
-      @team = Team.all.find { |team| team.name == 'Chinatown' }
+    def set_calamity
+      @calamity = Calamity.all.find { |team| team.name == 'Chinatown vs Shake \'n\' Bake' }
     end
 
     # Use callbacks to share common setup or constraints between actions.
@@ -48,6 +51,6 @@ class EmailResponsesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def email_response_params
-      params.require(:email_response).permit(:name)
+      params.permit!
     end
 end
