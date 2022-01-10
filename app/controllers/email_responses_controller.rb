@@ -12,6 +12,15 @@ class EmailResponsesController < ApplicationController
   def show
   end
 
+  # GET /team_members/new
+  def new
+    @email_response = EmailResponse.new(calamity_id: @calamity.id)
+  end
+
+  # GET /team_members/1/edit
+  def edit
+  end
+
   # POST /email_responses or /email_responses.json
   def create
     @create_email_response_command = Commands::CreateEmailResponse.new(email_response_params.merge(calamity_id: @calamity.id))
@@ -56,6 +65,10 @@ class EmailResponsesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def email_response_params
-      params.permit!
+      if params.key?(:email_response)
+        params.require(:email_response).permit(:from, :email)
+      else
+        { email: params.permit![:plain] }
+      end
     end
 end

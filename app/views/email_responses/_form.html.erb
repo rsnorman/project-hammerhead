@@ -1,0 +1,28 @@
+<%= form_with(model: email_response, url: [calamity, email_response]) do |form| %>
+  <% if email_response.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(email_response.errors.count, "error") %> prohibited this email response from being added:</h2>
+
+      <ul>
+        <% email_response.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :from %>
+    <%= form.text_field :from, type: :email, class: "block border border-grey-light w-full p-3 rounded mb-4" %>
+  </div>
+
+  <div class="field">
+    <%= form.label :email %>
+    <%= form.text_area :email, required: true, cols: 80, rows: 20, class: "block border border-grey-light w-full p-3 rounded mb-4" %>
+  </div>
+
+
+  <div class="actions">
+    <%= form.submit class: "w-full text-center py-3 rounded bg-indigo-600 text-white hover:bg-green-dark focus:outline-none" %>
+  </div>
+<% end %>

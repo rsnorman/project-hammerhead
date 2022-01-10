@@ -1,2 +1,23 @@
-Event: <%= @calamity.name %>
-Email: <%= @email_response.email %>
+<div class="flex flex-col flex-grow">
+  <div class="flex items-center flex-shrink-0 h-16 px-8 border-b border-gray-800">
+    <h1 class="text-lg font-medium">View Email Response</h1>
+  </div>
+  <div class="flex-grow p-6 overflow-auto bg-gray-800">
+    <div class="grid grid-cols-3 gap-6 mb-2">
+      <div class="p-4 col-span-1 bg-gray-700">
+        <div class="p-2">
+          <strong>From:</strong>
+          <%= @email_response.from %>
+        </div>
+
+        <div class="p-2">
+          <strong>Email:</strong>
+          <%= @email_response.email %>
+        </div>
+      </div>
+    </div>
+
+    <%= link_to 'Edit', edit_calamity_email_response_path(@calamity, @email_response), class: "items-center justify-center h-10 p-1 ml-auto text-sm font-medium rounded hover:bg-gray-600" %> |
+    <%= link_to 'Back', calamity_email_responses_path(@calamity), class: "items-center justify-center h-10 p-1 ml-auto text-sm font-medium rounded hover:bg-gray-600" %>
+  </div>
+</div>
