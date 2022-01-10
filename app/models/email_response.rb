@@ -2,9 +2,10 @@ class EmailResponse
   include ActiveModel::Model
 
   CREATE_EVENT_NAME = 'EmailResponseCreate'
+  UPDATE_EVENT_NAME = 'EmailResponseUpdate'
   DESTROY_EVENT_NAME = 'EmailResponseDestroy'
 
-  attr_reader :id, :calamity_id, :email, :deleted_at
+  attr_reader :id, :calamity_id, :email, :from, :deleted_at
 
   def self.all(calamity_id:)
     Event.all.select do |event|
@@ -32,7 +33,7 @@ class EmailResponse
 
   def self.apply_event_changes!(email_response)
     Event.all.select do |event|
-      event.data[:email_response_id] == email_response.id && event.name == DESTROY_EVENT_NAME
+      event.data[:email_response_id] == email_response.id && (event.name == UPDATE_EVENT_NAME || event.name == DESTROY_EVENT_NAME)
     end.each do |event|
       email_response.apply_event_change!(event)
     end
@@ -56,6 +57,8 @@ class EmailResponse
   end
 
   def apply_event_change!(event)
+    @email = event.data[:email] if event.data[:email]
+    @from = event.data[:from] if event.data[:from]
     @deleted_at = event.data[:deleted_at] if event.data[:deleted_at]
   end
 
