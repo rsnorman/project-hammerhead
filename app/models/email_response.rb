@@ -32,7 +32,7 @@ class EmailResponse
 
   def self.apply_event_changes!(email_response)
     Event.all.select do |event|
-      event.data[:email_response_id] == email_response.id && (event.name == UPDATE_EVENT_NAME || event.name == DESTROY_EVENT_NAME)
+      event.data[:email_response_id] == email_response.id && event.name == DESTROY_EVENT_NAME
     end.each do |event|
       email_response.apply_event_change!(event)
     end
