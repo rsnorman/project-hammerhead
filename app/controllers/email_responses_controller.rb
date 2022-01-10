@@ -1,11 +1,11 @@
 class EmailResponsesController < ApplicationController
   before_action :set_calamity
   before_action :set_email_response, only: %i[ show destroy ]
-  protect_from_forgery with: :null_session
+  protect_from_forgery with: :null_session, only: :create
 
   # GET /email_responses or /email_responses.json
   def index
-    @email_responses = EmailResponse.all
+    @email_responses = EmailResponse.all(calamity_id: @calamity.id)
   end
 
   # GET /email_responses/1 or /email_responses/1.json
@@ -41,7 +41,12 @@ class EmailResponsesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_calamity
-      @calamity = Calamity.all.find { |team| team.name == 'Chinatown vs Shake \'n\' Bake' }
+      @calamity =
+        if params[:calamity_id]
+          Calamity.find(params[:calamity_id])
+        else
+          Calamity.all.find { |team| team.name == 'Chinatown vs Shake \'n\' Bake' }
+        end
     end
 
     # Use callbacks to share common setup or constraints between actions.

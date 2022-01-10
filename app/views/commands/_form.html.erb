@@ -1,0 +1,27 @@
+<%= form_with(model: command) do |form| %>
+  <% if command.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(command.errors.count, "error") %> prohibited this command from being executed:</h2>
+
+      <ul>
+        <% command.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.select :name, ['ProcessEmailResponse'], {}, required: true, class: "block border border-grey-light w-full p-3 rounded mb-4" %>
+  </div>
+
+  <div class="field">
+    <%= form.label :attributes %>
+    <%= form.text_area :attributes, value: '{"email_response_id":"67788ff0-3737-43d1-9289-688a08321586"}', required: true, class: "block border border-grey-light w-full p-3 rounded mb-4" %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit class: "w-full text-center py-3 rounded bg-indigo-600 text-white hover:bg-green-dark focus:outline-none" %>
+  </div>
+<% end %>

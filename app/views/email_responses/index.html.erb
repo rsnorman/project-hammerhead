@@ -1,0 +1,27 @@
+<div class="flex flex-col flex-grow">
+  <div class="flex items-center flex-shrink-0 h-16 px-8 border-b border-gray-800">
+    <h1 class="text-lg font-medium"><%= @calamity.name %> Email Responses</h1>
+  </div>
+  <div class="flex-grow p-6 overflow-auto bg-gray-800">
+    <table class="min-w-full table-auto">
+      <thead>
+        <tr>
+          <th>From</th>
+          <th>Message</th>
+          <th colspan="3"></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @email_responses.each do |email_response| %>
+          <tr class="bg-gray-700">
+            <td class="p-2"><%= email_response.from %></td>
+            <td class="p-2"><%= email_response.email %></td>
+            <td class="p-2"><%= link_to 'Show', calamity_email_response_path(@calamity, email_response), class: "items-center justify-center h-10 p-1 ml-auto text-sm font-medium rounded hover:bg-gray-600" %></td>
+            <td class="p-2"><%= link_to 'Destroy', calamity_email_response_path(@calamity, email_response), method: :delete, data: { confirm: 'Are you sure?' }, class: "items-center justify-center h-10 p-1 ml-auto text-sm font-medium rounded hover:bg-gray-600" %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
