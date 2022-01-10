@@ -6,7 +6,7 @@ module Commands
 
     def initialize(attributes = {})
       @calamity_id = attributes[:calamity_id]
-      @email = attributes[:email]
+      @email = attributes[:plain]
     end
 
     def execute
